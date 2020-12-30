@@ -1,0 +1,79 @@
+{% extends 'wrapper.html' %}
+
+{% block content %}
+    {% if p %}
+    <article class="grid-container solo-dolo">
+        <div class="grid-x align-center">
+            <div class="cell medium-8">
+              <div class="blog-post">
+                  
+                <h3>{{ p.newspost_title_text }} </h3>
+                <h5>By <a href="{% url 'newsposts:about' %}">{{ p.newspost_author }} </a><small>{{ p.pub_date }}</small></h5>            
+              <!--Load Video if avaibale-->
+                {% if p.newspost_video %}
+                <div class="media-object">
+                  <video controls>
+                    <source src="{{ MEDIA_URL }}{{ p.newspost_video }}">
+                  </video>
+                </div>
+                {% endif %}
+
+              <!--Load Audio if avaibale-->
+                {% if p.newspost_audio %}
+                <div class="media-object">
+                  <audio controls>
+                    <source src="{{ MEDIA_URL }}{{ p.newspost_audio }}">
+                  </audio>
+                </div>
+                {% endif %}
+              
+              <!--Load Thumbnail if available-->
+              {% if p.newspost_photo and not p.newspost_video %}
+                <div class="media-object">
+                  <img src="{{ MEDIA_URL }}{{ p.newspost_photo }}">
+                </div>
+              {% endif %}
+      
+              <!--Attributes of post section-->
+                <div class="callout">
+                  <p>{{ p.newspost_main_text }}</p>
+                </div>
+              
+              
+              </div>
+            </div>
+          </div>
+          <div class="grid-x align-center">
+            <div class="cell medium-8">
+              {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+              {% if user.is_authenticated %}
+              Commenting as {{ user.username }}
+              <form action="{% url 'newsposts:post_comment' p.id %}" method="post">
+              <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+              {% csrf_token %}
+              <input type="text" id="comment_post_text" name="comment_text" placeholder="Enter comment here...">
+              <div class="g-recaptcha" data-sitekey="{{ CAPTCHA_SITE_KEY }}"></div>
+              <br/>
+              <input type="submit">
+              </form>
+              {% else %}
+                <p><a href="{% url 'login' %}">Please sign in to comment...</a></p>
+              {% endif %}
+            </div>
+          </div>
+        </br>
+          <div class="grid-x align-center">
+            {% if comment_list %}
+              {% for c in comment_list %}
+              <div class="cell medium-8">
+                  <h5>{{ c.comment_author_name }} <small>{{ c.pub_date }}</small></h5>
+                  <p>{{ c.comment_text }}</p>
+              </div>
+              {% endfor %}
+            {% else %}
+            <h1>No Comments yet...</h1>
+            {% endif %}
+          </div>  
+    </article>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends 'wrapper.html' %}
+
+{% block content %}
+{% if admin_list %}
+<div class="grid-container">
+    {% for a in admin_list %}
+    <div class="cell medium-8">
+        <div class="card">
+            <div class="card-section">
+                <h1>{{ a.username }}</h1>
+            </div>
+            <div class="card-section">
+                <p>Lorem ipSum</p>
+            </div>
+        </div>
+    </div>    
+    {% endfor %}
+</div>
+{% endif %}
+{% endblock %}

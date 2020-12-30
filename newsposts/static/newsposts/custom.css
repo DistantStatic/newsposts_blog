@@ -1,0 +1,68 @@
+.media-object video {
+    max-width: 100%;
+}
+
+.media-object img {
+    max-width: 100%;
+}
+
+.blog-post .callout{
+    border-top: none;
+    border-left: none;
+    border-right: none;
+}
+
+.top-bar, .top-bar ul {
+    background-color: lightsteelblue;
+}
+
+.sticky {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 5;
+  }
+
+.sticky + .content {
+    padding-top: 60px;
+}
+
+.hero {
+    background-image: url(https://listverse.com/wp-content/uploads/2016/11/9-diogenes.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position-y: -15em;
+    background-attachment: fixed;
+    margin-top: 3.4em;
+}
+
+.hero::before {
+    content: "";
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    background-color: rgba(30, 125, 193, .55);
+}
+
+.grid-x{
+    padding-top: 2em;
+}
+
+.blog-post .callout {
+    text-align: center;
+}
+
+.more-link {
+    margin:auto;
+    text-align:center;
+}
+
+.common-form {
+    padding-top: 10em;
+}
+
+.solo-dolo {
+    padding-top: 5em;
+}

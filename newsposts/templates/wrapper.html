@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vagrants | Welcome</title>
+    <!-- Compressed CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/css/foundation.min.css" integrity="sha256-ogmFxjqiTMnZhxCqVmcqTvjfe1Y/ec4WaRj/aQPvn+I=" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <!-- Compressed JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/js/foundation.min.js" integrity="sha256-pRF3zifJRA9jXGv++b06qwtSqX1byFQOLjqa2PTEb2o=" crossorigin="anonymous"></script>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'newsposts/custom.css' %}">
+  </head>
+  <body>
+
+    <!-- Start Top Bar -->
+    <div class="top-bar sticky">
+      <div class="top-bar-left">
+        <ul class="menu">
+          <li class="menu-text">Podcast/Show</li>
+          <li><a href="{% url 'newsposts:home' %}">Home</a></li>
+          <li><a href="{% url 'newsposts:posts' %}">List</a></li>
+          <li><a href="{% url 'newsposts:about' %}">About</a></li>
+        </ul>
+      </div>
+      <div class="top-bar-right">
+        <ul class="menu">
+          {% if user.is_authenticated %}
+          <li class="menu-text algin-right">Hi {{ user.username }}!</li>
+          <li class="align-right"><a href="{% url 'newsposts:logout' %}"> Log Out</a></li>
+          {% else %}
+          <li class="menu-text align-right">Hi Stranger!!</li>
+          <li class="align-right"><a href="{% url 'newsposts:login' %}">Log In</a></li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+    <!-- End Top Bar -->
+    {% block content %}
+    {% endblock %}
+    <script>
+        $(document).foundation();
+    </script>
+</body>
+</html>

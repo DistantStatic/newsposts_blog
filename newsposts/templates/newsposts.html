@@ -1,0 +1,54 @@
+{% extends 'wrapper.html' %}
+{% block content %}
+    <div class="post_list">
+    {% if latest_post_list %}
+      <article class="grid-container solo-dolo">  
+        {% for p in latest_post_list %}  
+          <div class="grid-x align-center">
+            <div class="cell medium-8">
+              <div class="blog-post">
+                  
+                <h3>{{ p.newspost_title_text }} </h3>
+                <h5>By <a href="{% url 'newsposts:about' %}">{{ p.newspost_author }} </a><small>{{ p.pub_date }}</small></h5>           
+                      
+                <!--Load Video if available-->
+                {% if p.newspost_video %}
+                <div class="media-object">
+                  <video controls>
+                    <source src="{{ MEDIA_URL }}{{ p.newspost_video }}">
+                  </video>
+                </div>
+                {% endif %}
+
+                <!--Load Audio if avaibale-->
+                {% if p.newspost_audio %}
+                <div class="media-object">
+                  <audio controls>
+                    <source src="{{ MEDIA_URL }}{{ p.newspost_audio }}">
+                  </audio>
+                </div>
+                {% endif %}
+              
+                <!--Load Thumbnail if available-->
+                {% if p.newspost_photo and not p.newspost_video %}
+                <div class="media-object">
+                  <img src="{{ MEDIA_URL }}{{ p.newspost_photo }}">
+                </div>
+                {% endif %}
+
+                <!--Attributes of post section-->
+                <div class="callout">
+                  <p>{{ p.newspost_main_text }}</p>
+                  <a class="more-link" href="{% url 'newsposts:posts_individual' p.id %}">More...</a>
+                </div>
+                
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </article>
+    {% else %}
+        <p>No posts are available.</p>
+    {% endif %}
+    </div>
+{% endblock %}

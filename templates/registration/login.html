@@ -1,0 +1,26 @@
+{% extends 'wrapper.html' %}
+{% block content %}
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+<article class="grid-container">
+    <div class="grid-x align-center">
+      <div class="cell medium-8">
+        <div class="blog-post">
+        <form class="common-form" method="post">
+          <h2>{{ form_type }}</h2>
+          {% if error_message %}
+          <h5 style="color: red"><b>{{ error_message }}</b></h5>
+          {% endif %}
+        {% csrf_token %}
+        {{ form.as_p }}
+          <div class="g-recaptcha" data-sitekey="{{ CAPTCHA_SITE_KEY }}"></div>
+          <br/>
+          <button type="submit">Submit</button>
+          {% if form_type == "Log In" %}
+          <h5><small><a href="{% url 'newsposts:register' %}">Need to make an account?</a></small></h5>
+          {% endif %}
+        </form>
+        </div>
+      </div>
+    </div>
+</article>
+{% endblock %}
